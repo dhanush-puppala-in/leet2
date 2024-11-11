@@ -1,0 +1,40 @@
+class Solution {
+public:
+    bool checkPrime(int x) {
+        for (int j = 2; j <= sqrt(x); j++) {
+            if (x % j == 0) {
+                return 0;
+            }
+        }
+        return 1;
+    }
+    bool primeSubOperation(vector<int>& nums) {
+        for (int j = 0; j < nums.size(); j++) {
+            int bound;
+            
+            if (j == 0) {
+                bound = nums[0];
+            } else {
+                
+                bound = nums[j] - nums[j - 1];
+            }
+
+            
+            if (bound <= 0) {
+                return 0;
+            }
+
+           
+            int largestPrime = 0;
+            for (int k = bound - 1; k >= 2; k--) {
+                if (checkPrime(k)) {
+                    largestPrime = k;
+                    break;
+                }
+            }
+
+            nums[j] = nums[j] - largestPrime;
+        }
+        return 1;
+    }
+};
